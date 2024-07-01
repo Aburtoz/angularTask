@@ -1,1 +1,105 @@
-<p>lista-task works!</p>
+<h2>Lista de Tareas</h2>
+<div class="row">
+    
+    <div class="col-12 d-flex flex-column">
+        <p class="text-start" style="margin: 0;">Usuario: {{userSelected!=null? userSelected.username:""}}</p>
+        <p class="text-start" style="margin: 0;">Nombre: {{userSelected!=null?userSelected.nombre:""}}</p>
+    </div>
+
+    <div class="col-12 text-start mt-2">
+        <a class="btn btn-primary" [routerLink]="['/user']" role="button">Cambiar usuario</a>
+    </div>
+
+    <div class="col-12 text-end mt-3">
+        <button class="btn btn-primary" data-bs-toggle="modal" (click)="createTask()" data-bs-target="#myModalTask">Agregar tarea</button>
+    </div>
+
+    <div class="col-12 mt-3">
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>titulo</th>
+                    <th>descripcion</th>
+                    <th>state(pasivo)</th>
+                    <th>createdAt</th>
+                    <th>updatedAt</th>
+                    <th>Option</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of tasks">
+                    <th>{{item.titulo}}</th>
+                    <th>{{item.description}}</th>
+                    <th>{{item.pasivo}}</th>
+                    <th>{{item.createdAt | date:'medium'}}</th>
+                    <th>{{item.updatedAt | date:'medium'}}</th>
+                    <td>
+                        <i (click)="selectTaskToDelete(item.id)" class="fa-solid fa-trash me-3" data-bs-toggle="modal" data-bs-target="#deleteConfirm" style="color:red;cursor: pointer;"></i>
+                        <i (click)="selectTaskToEdit(item)" class="fa-solid fa-pen-to-square me-3" data-bs-toggle="modal" data-bs-target="#myModalTask" style="color:rgb(19, 30, 179);cursor: pointer;"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+
+<!-- Modal para crear un tareas-->
+<div class="modal fade" id="myModalTask" #myModal tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{nameModal}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+             <div class="row text-start">
+                <input type="hidden" name="id" [(ngModel)]="task.id" >
+                <div class="col-12">
+                    <label for="titulo" class="form-label">Titulo</label>
+                    <input type="text" class="form-control" id="titulo" name="titulo" [(ngModel)]="task.titulo" class="form-control" placeholder="Titulo">
+                </div>
+
+                <div class="col-12 mt-2">
+                    <label for="description" class="form-label">Descriccion</label>
+                    <textarea class="form-control" id="description" name="description" rows="3" [(ngModel)]="task.description" ></textarea>
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" #closeModal data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" (click)="saveTask()">Guardar</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Modal para confirmar borrar un usuario-->
+
+<div class="modal" id="deleteConfirm">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Confirmar</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+            Esta seguro de eliminar este registro?
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" #closeModalConfirm data-bs-dismiss="modal">No</button>
+          <button type="button" class="btn btn-primary" (click)="deleteTask()">Si</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>

@@ -2,7 +2,7 @@
 <div class="row text-end mt-2 mb-2">
 
     <div class="control">
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Agregar</button>
+        <button class="btn btn-primary" data-bs-toggle="modal" (click)="createUser()" data-bs-target="#myModal">Agregar</button>
     </div>
    
 </div>
@@ -26,8 +26,9 @@
                 <td>{{item.createdAt | date:'medium'}}</td>
                 <td>{{item.updatedAt | date:'medium'}}</td>
                 <td>
-                    <i (click)="selectUserToDelete(item.id)" class="fa-solid fa-trash me-3" data-bs-toggle="modal" data-bs-target="#deleteConfirm" style="color:red;cursor: pointer;"></i>
-                    <i (click)="selectUserToEdit(item)" class="fa-solid fa-pen-to-square" data-bs-toggle="modal" data-bs-target="#myModal" style="color:rgb(19, 30, 179);cursor: pointer;"></i>
+                    <a href="#"><i (click)="selectUserToDelete(item.id)" class="fa-solid fa-trash me-3" data-bs-toggle="modal" data-bs-target="#deleteConfirm" style="color:red;"></i></a>
+                    <a href="#"><i (click)="selectUserToEdit(item)" class="fa-solid fa-pen-to-square me-3" data-bs-toggle="modal" data-bs-target="#myModal" style="color:rgb(19, 30, 179);"></i></a>
+                    <a [routerLink]="['/task',item.id]" routerLinkActive="active" ariaCurrentWhenActive="page"><i class="fa-solid fa-list-check" style="color:rgb(27, 99, 45);"></i></a>
                 </td>
             </tr>
         </tbody>
@@ -38,7 +39,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Usuario</h5>
+          <h5 class="modal-title" id="exampleModalLabel">{{nameModal}}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterOutlet,RouterLink, RouterLinkActive} from '@angular/router';
+import { RouterOutlet,RouterLink, RouterLinkActive,Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +9,16 @@ import { RouterOutlet,RouterLink, RouterLinkActive} from '@angular/router';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+
+
+  constructor(private router: Router) { }
+
   title = 'taskAngular';
+
+  ngOnInit() {
+    this.router.navigate(['/user']);
+  }
 
 }
 

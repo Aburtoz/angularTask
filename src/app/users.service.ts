@@ -8,13 +8,17 @@ import { MensageResponse } from './mensage-response';
 })
 export class UsersService {
 
-  //Esta URL obtiene el listado de todos los empleados en el backend
+  //Esta URL obtiene el listado de todos los usuarios en el backend
   private baseURL= "http://localhost:8092/api/v1";
 
   constructor(private httpClient: HttpClient) { }
 
   getAllUsers(): Observable<MensageResponse>{
     return this.httpClient.get<MensageResponse>(`${this.baseURL}/users`)
+  }
+
+  getUserById(id:number): Observable<MensageResponse>{
+    return this.httpClient.get<MensageResponse>(`${this.baseURL}/user/${id}`)
   }
 
   createUser(data:any): Observable<MensageResponse>{

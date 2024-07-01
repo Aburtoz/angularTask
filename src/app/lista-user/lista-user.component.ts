@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { User } from '../user';
 import { UsersService } from '../users.service';
+import { RouterLink, RouterLinkActive} from '@angular/router';
 
 
 @Component({
   selector: 'app-lista-user',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule, RouterLink, RouterLinkActive],
   templateUrl: './lista-user.component.html',
   styleUrl: './lista-user.component.css'
 })
@@ -20,6 +21,7 @@ export class ListaUserComponent {
   usuarios: User[];
   user:User;
   idUserDelete:number;
+  nameModal:string;
 
   constructor(private usersService: UsersService){
     this.user=new User();
@@ -36,6 +38,10 @@ export class ListaUserComponent {
     });
   }
 
+  createUser(){
+     this.nameModal="Crear Usuario"
+  }
+
 
   selectUserToDelete(id:number){
     this.idUserDelete=id;
@@ -43,7 +49,7 @@ export class ListaUserComponent {
 
   selectUserToEdit(user:User){
     this.user=user;
-    console.log(user)
+    this.nameModal="Editar Usuario"
   }
 
   deleteUser(){
