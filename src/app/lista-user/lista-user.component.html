@@ -1,0 +1,97 @@
+<h2>Lista Usuario</h2>
+<div class="row text-end mt-2 mb-2">
+
+    <div class="control">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Agregar</button>
+    </div>
+   
+</div>
+
+<table class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>username</th>
+                <th>name</th>
+                <th>state(pasivo)</th>
+                <th>createdAt</th>
+                <th>updatedAt</th>
+                <th>Option</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of usuarios">
+                <td>{{item.username}}</td>
+                <td>{{item.nombre}}</td>
+                <td>{{item.pasivo}}</td>
+                <td>{{item.createdAt | date:'medium'}}</td>
+                <td>{{item.updatedAt | date:'medium'}}</td>
+                <td>
+                    <i (click)="selectUserToDelete(item.id)" class="fa-solid fa-trash me-3" data-bs-toggle="modal" data-bs-target="#deleteConfirm" style="color:red;cursor: pointer;"></i>
+                    <i (click)="selectUserToEdit(item)" class="fa-solid fa-pen-to-square" data-bs-toggle="modal" data-bs-target="#myModal" style="color:rgb(19, 30, 179);cursor: pointer;"></i>
+                </td>
+            </tr>
+        </tbody>
+</table>
+
+<!-- Modal para crear un usuario-->
+<div class="modal fade" id="myModal" #myModal tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Usuario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+             <div class="row">
+                <input type="hidden" name="id" [(ngModel)]="user.id" >
+                <div class="col-6">
+                    <label for="">User Name</label>
+                    <input type="text" name="username" [(ngModel)]="user.username" class="form-control" placeholder="User Name">
+                </div>
+
+                <div class="col-6">
+                    <label for="">Password</label>
+                    <input type="text" name="password" [(ngModel)]="user.password"  class="form-control" placeholder="Password">
+                </div>
+
+                <div class="col-6">
+                    <label for="">Name</label>
+                    <input type="text" name="nombre" [(ngModel)]="user.nombre" class="form-control" placeholder="Name">
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" #closeModal data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" (click)="saveUsuario()">Guardar</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Modal para confirmar borrar un usuario-->
+
+<div class="modal" id="deleteConfirm">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Confirmar</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+            Esta seguro de eliminar este registro?
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" #closeModalConfirm data-bs-dismiss="modal">No</button>
+          <button type="button" class="btn btn-primary" (click)="deleteUser()">Si</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
